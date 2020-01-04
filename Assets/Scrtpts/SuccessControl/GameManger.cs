@@ -12,6 +12,13 @@ public class GameManger : MonoBehaviour
 
     public GameObject CameraHead;
     public GameObject[] cld;
+
+    public GameObject exitDoorleft;
+    public GameObject exitDoorRight;
+
+    public GameObject doorleft;
+    public GameObject doorRight;
+
     private void Awake()
     {
         _gameManager = this;
@@ -52,19 +59,14 @@ public class GameManger : MonoBehaviour
             go.GetComponent<Collider>();
             
         }
+        exitDoorleft.transform.position = new Vector3(Mathf.Lerp(exitDoorleft.transform.position.x,doorleft.transform.position.x,Time.deltaTime), exitDoorleft.transform.position.y, exitDoorleft.transform.position.z);
+        exitDoorRight.transform.position = new Vector3(Mathf.Lerp(exitDoorRight.transform.position.x, doorRight.transform.position.x,Time.deltaTime), exitDoorRight.transform.position.y, exitDoorRight.transform.position.z);
         
-
-        //第一种方法
-        //if (isPlayAlarmAudio)
-        //{
-        //    PlayAlarm();
-        //}
-        //else
-        //{
-        //    stopAlarm();
-        //}
     }
-    
+    void DoorExitAniPlay()
+    {
+
+    }
     ///第一种方法的另一部分
     //private void PlayAlarm()
     //{
@@ -87,30 +89,30 @@ public class GameManger : MonoBehaviour
     //    }
     //}
 
-    void CameraRotate()
-    {
-        //此处这么多次的尝试，大多数都是因为在游戏引擎层级中，上层的父物体旋转角度没有清0
-        //CameraHead.transform.rotation = Quaternion.Lerp (CameraHead.transform.rotation,new Quaternion(42,-90,0,1),Time.time*0.01f);
-        //CameraHead.transform.rotation = new Quaternion(40, -60, 0,1);
+    //void CameraRotate()
+    //{
+    //    //此处这么多次的尝试，大多数都是因为在游戏引擎层级中，上层的父物体旋转角度没有清0
+    //    //CameraHead.transform.rotation = Quaternion.Lerp (CameraHead.transform.rotation,new Quaternion(42,-90,0,1),Time.time*0.01f);
+    //    //CameraHead.transform.rotation = new Quaternion(40, -60, 0,1);
 
-        //bool rotatefinish = false;
-        //if (rotatefinish==false)
-        //{
-        //    CameraHead.transform.eulerAngles = new Vector3(40, Mathf.LerpAngle(-90, -180, Time.time),0);//直接设置旋转角度
+    //    //bool rotatefinish = false;
+    //    //if (rotatefinish==false)
+    //    //{
+    //    //    CameraHead.transform.eulerAngles = new Vector3(40, Mathf.LerpAngle(-90, -180, Time.time),0);//直接设置旋转角度
 
-        //    if (CameraHead.transform.eulerAngles == new Vector3(CameraHead.transform.rotation.x, -180, CameraHead.transform.rotation.z))
-        //    {
-        //        rotatefinish = true;
-        //        print(rotatefinish);
-        //    }
-        //}
+    //    //    if (CameraHead.transform.eulerAngles == new Vector3(CameraHead.transform.rotation.x, -180, CameraHead.transform.rotation.z))
+    //    //    {
+    //    //        rotatefinish = true;
+    //    //        print(rotatefinish);
+    //    //    }
+    //    //}
         
-        //if (rotatefinish)
-        //{
-        //    CameraHead.transform.eulerAngles = new Vector3(40, Mathf.LerpAngle(-180, -90, Time.time), 0);
-        //}
+    //    //if (rotatefinish)
+    //    //{
+    //    //    CameraHead.transform.eulerAngles = new Vector3(40, Mathf.LerpAngle(-180, -90, Time.time), 0);
+    //    //}
         
-    }
+    //}
     
 }
 
