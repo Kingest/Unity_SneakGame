@@ -25,11 +25,14 @@ public class Item : MonoBehaviour
                 if (fixButtenED.Pressed)
                 {
                     PhoneThirdPersonContaol.isGetKey = true;
+                    TriggerButton.SetActive(false);
                     Destroy(gameObject);
+                    
                 }
             }
         }
         
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -44,6 +47,7 @@ public class Item : MonoBehaviour
     {
         if (other.tag=="Player")
         {
+            
             TriggerButton.SetActive(false);
         }
         

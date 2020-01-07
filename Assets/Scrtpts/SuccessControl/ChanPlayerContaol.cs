@@ -32,8 +32,8 @@ public class ChanPlayerContaol : MonoBehaviour
         var vel = Quaternion.AngleAxis(cameraAngley + 180, Vector3.up)*-input*5f;
         rigidbody.velocity = new Vector3(vel.x, rigidbody.velocity.y, vel.z);
         cameraAngley += fixedTouch.TouchDist.x * cameraAngelSpeed;
-        Camera.main.transform.position = transform.position + Quaternion.AngleAxis(cameraAngley, Vector3.up) * new Vector3(0, 2, -4);
-        Camera.main.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up*1f - Camera.main.transform.position, Vector3.up);
+        print(fixedTouch.TouchDist.x);
+        
 
         //此为控制角色面向我们摇杆
         transform.rotation = Quaternion.AngleAxis(cameraAngley+Vector3.SignedAngle(Vector3.forward,input.normalized+Vector3.forward*0.001f,Vector3.up), Vector3.up);
@@ -55,5 +55,11 @@ public class ChanPlayerContaol : MonoBehaviour
             rigidbody.velocity = new Vector3(rigidbody.velocity.x, 2f, rigidbody.velocity.z);
         }
         
+    }
+    private void LateUpdate()
+    {
+        Camera.main.transform.position = transform.position + Quaternion.AngleAxis(cameraAngley, Vector3.up) * new Vector3(0, 2, -4);
+        //print(Quaternion.AngleAxis(cameraAngley, Vector3.up) * new Vector3(0, 2, -4));//此方法为环绕角色的坐标，就像是溜溜球，得出的结果就是溜溜球离手的坐标
+        Camera.main.transform.rotation = Quaternion.LookRotation(transform.position + Vector3.up * 1f - Camera.main.transform.position, Vector3.up);
     }
 }
