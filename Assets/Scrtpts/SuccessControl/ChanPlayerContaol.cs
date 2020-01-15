@@ -12,11 +12,14 @@ public class ChanPlayerContaol : MonoBehaviour
     public FixedTouchField fixedTouch;//触屏切换摄影机视角
     private Rigidbody rigidbody;
 
+    public float speed;
     protected float cameraAngley;
     protected float cameraAngelSpeed = 0.1f;
     protected float cameraPosy;
     protected float CameraPosSpeed = 0.1f;
 
+    public Transform checkTrans;
+    public LayerMask groundLayer;
     private Animator Animr;
     void Start()
     {
@@ -28,12 +31,14 @@ public class ChanPlayerContaol : MonoBehaviour
     void Update()
     {
         
+
         var input = new Vector3(variableJoystick.Horizontal, 0, variableJoystick.Vertical);
         var vel = Quaternion.AngleAxis(cameraAngley + 180, Vector3.up)*-input*5f;
         rigidbody.velocity = new Vector3(vel.x, rigidbody.velocity.y, vel.z);
         cameraAngley += fixedTouch.TouchDist.x * cameraAngelSpeed;
-        print(fixedTouch.TouchDist.x);
-        
+
+        //重力模拟
+        //rigidbody.velocity = new Vector3(rigidbody.velocity.x, -9.81f, rigidbody.velocity.z)*speed;
 
         //此为控制角色面向我们摇杆
         transform.rotation = Quaternion.AngleAxis(cameraAngley+Vector3.SignedAngle(Vector3.forward,input.normalized+Vector3.forward*0.001f,Vector3.up), Vector3.up);
@@ -48,13 +53,21 @@ public class ChanPlayerContaol : MonoBehaviour
             
             Animr.SetBool("isRun", false);
         }
+        //跳跃
         if (FixButtenED.Pressed)
         {
             Animr.Play("jump");
             //Animr.SetBool("isJump",true);
-            rigidbody.velocity = new Vector3(rigidbody.velocity.x, 2f, rigidbody.velocity.z);
+            rigidbody.velocity = new Vector3(rigidbody.velocity.x, 5, rigidbody.velocity.z);
+            Animr.SetBool("IsGround", false);
         }
-        
+        //判断是否在地面上
+        bool isGround = Physics.CheckSphere(checkTrans.position, 0.1f, groundLayer);
+        if (isGround)
+        {
+            Animr.SetBool("IsGround", true);
+        }
+        print(rigidbody.velocity.y);
     }
     private void LateUpdate()
     {

@@ -1,0 +1,5 @@
+Import these packages if you are planning to use Unity 2019.
+These realtoon shaders uses the "shader_feature_local" which only available on unity 2019 to later version.
+Means the "Enable/Disable Features" will now be local instead of global.
+
+For "Unity 2019.3.0 URP", just import the package "RealToon URP" under the folder "RealToon SRP".
