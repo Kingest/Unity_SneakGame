@@ -84,14 +84,12 @@ public class PhoneThirdPersonContaol : MonoBehaviour
     {
         float currentDistance = (Camera.main.transform.position - transform.position - new Vector3(0, 1.2f, 0)).magnitude;
         float camDistacne = currentDistance + 0.35f;
-        print(currentDistance);
+        
         camRay.origin = Camera.main.transform.position;
         camRay.direction = (transform.position+new Vector3(0,1.2f,0)-Camera.main.transform.position).normalized;
-        print(camRay.direction);
+        
         if (Physics.Raycast(camRay,out cameraRayHit,currentDistance))
         {
-            
-            print("Hit");
         }
         else
         {
