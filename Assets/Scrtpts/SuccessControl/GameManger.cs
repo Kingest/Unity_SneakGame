@@ -19,15 +19,25 @@ public class GameManger : MonoBehaviour
     public GameObject doorleft;
     public GameObject doorRight;
 
+    public Vector3 lastPlayerPos = Vector3.zero;
+    /// <summary>
+    /// 用于测试进入战斗之后BGM的播放，clip就像是子弹，audiosource就像是枪，可以更换子弹的，而枪只有一把
+    /// </summary>
+    public AudioClip [] bgmClip;
+    private AudioSource audioSurceMy;
+
+
     private void Awake()
     {
         _gameManager = this;
+        
     }
     // Start is called before the first frame update
     void Start()
     {
         gb = GameObject.FindGameObjectsWithTag(Tag.AlarmBorad);
         cld = GameObject.FindGameObjectsWithTag(Tag.AlarmArea);
+        audioSurceMy = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -42,6 +52,8 @@ public class GameManger : MonoBehaviour
                 if (gb[i].GetComponent<AudioSource>().isPlaying == false)
                 {
                     gb[i].GetComponent<AudioSource>().Play();
+                    audioSurceMy.clip = bgmClip[0];
+                    audioSurceMy.Play();
                 }
 
             }
@@ -67,6 +79,12 @@ public class GameManger : MonoBehaviour
     {
 
     }
+    public void SeePlayer(Transform player)//用于统一玩家的位置信息，摄像头也好，机械人也好，看到了玩家之后就会汇报信息
+    {
+        isPlayAlarmAudio = true;
+        lastPlayerPos = player.position;
+    }
+    
     ///第一种方法的另一部分
     //private void PlayAlarm()
     //{

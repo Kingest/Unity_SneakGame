@@ -79,6 +79,12 @@ public class PhoneThirdPersonContaol : MonoBehaviour
         }
 
         CameraCollision();
+
+        //Vector3 crossleft= Vector3.Cross(Vector3.forward, Vector3.left);//cross值为（0，-1，0）
+        //Vector3 crossright = Vector3.Cross(Vector3.forward, Vector3.right);//cross值为（0,1,0）
+        //可以通过Y值的正负来判断旋转是向左还是向右
+
+        
     }
     void CameraCollision()
     {
@@ -87,7 +93,7 @@ public class PhoneThirdPersonContaol : MonoBehaviour
         
         camRay.origin = Camera.main.transform.position;
         camRay.direction = (transform.position+new Vector3(0,1.2f,0)-Camera.main.transform.position).normalized;
-        
+                                                                                      
         if (Physics.Raycast(camRay,out cameraRayHit,currentDistance))
         {
         }

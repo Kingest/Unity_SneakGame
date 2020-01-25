@@ -36,9 +36,10 @@ public class Item : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        TriggerButton.SetActive(true);
+       
         if (isCard==true&&other.tag=="Player")
         {
+            TriggerButton.SetActive(true);
             canDestoryCard = true;
             
         }

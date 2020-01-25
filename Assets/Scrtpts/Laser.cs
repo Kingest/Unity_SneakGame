@@ -29,5 +29,12 @@ public class Laser : MonoBehaviour
             GameManger._gameManager.isPlayAlarmAudio = true;
         }
     }
-    
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag==Tag.Player)
+        {
+            GameManger._gameManager.SeePlayer(other.transform);
+        }
+    }
+
 }
