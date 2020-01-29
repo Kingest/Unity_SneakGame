@@ -31,7 +31,7 @@ public class DoorControl : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag=="Player")
+        if (other.tag==Tag.Player||other.tag==Tag.Enemy)
         {
             if (isExitDoor==false)
             {
@@ -50,7 +50,7 @@ public class DoorControl : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag=="Player")
+        if (other.tag == "Player"|| other.tag==Tag.Enemy)
         {
             if (isExitDoor==false)
             {
@@ -59,9 +59,7 @@ public class DoorControl : MonoBehaviour
             
             if (PhoneThirdPersonContaol.isGetKey == true && isExitDoor == true)
             {
-                
                 doorExitAnir.Play("DoorClose");
-                
             }
         }
     }

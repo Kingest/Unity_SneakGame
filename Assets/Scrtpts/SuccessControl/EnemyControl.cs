@@ -13,7 +13,8 @@ public class EnemyControl : MonoBehaviour
     private SphereCollider sphereCollider;//用于检测是否能听到玩家的组件
     public Vector3 alertPosition;
     public Vector3 perLastPlayerPosition;
-    float ang;
+    private float ang;
+    public static bool seePlayer = false;
     private void Awake()
     {
         navAgient = GetComponent<NavMeshAgent>();
@@ -27,27 +28,32 @@ public class EnemyControl : MonoBehaviour
     }
     private void Update()
     {
-        if (GameManger._gameManager.lastPlayerPos!=alertPosition)//如果最后看到玩家的地点发生变动，那么就是玩家触发了警报or被看到了
+         
+        if (GameManger._gameManager.lastPlayerPos != alertPosition)//如果最后看到玩家的地点发生变动，那么就是玩家触发了警报or被看到了
         {
             alertPosition = GameManger._gameManager.lastPlayerPos;
             perLastPlayerPosition = GameManger._gameManager.lastPlayerPos;
+            
         }
-        //print(ang);
+       
     }
     private void OnTriggerStay(Collider other)
     {
-
+       
         if (other.tag==Tag.Player)
         {
             //视觉检测
             Vector3 forward = transform.forward;//得到敌人正前方的那条线
             Vector3 playerPos = other.transform.position - transform.position;//得到玩家减去敌人的那条线
             /*float allangle*/ ang= Vector3.Angle(forward, playerPos);//得到这两条线的夹角
-            if (ang<enemySeeAngle*0.5)//夹角小于视野的2分之1角度，就证明被康到了
+            RaycastHit hit;
+            bool rayCasthit= Physics.Raycast(transform.position + Vector3.up, other.transform.position - transform.position, out hit);
+            if (ang<enemySeeAngle*0.5&&hit.collider.tag==Tag.Player)//夹角小于视野的2分之1角度，就证明被康到了
             {
                 isPlayerInside = true;
                 alertPosition = other.transform.position;
                 GameManger._gameManager.SeePlayer(other.transform);
+                
             }
             else
             {

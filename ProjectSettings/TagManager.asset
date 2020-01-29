@@ -6,6 +6,7 @@ TagManager:
   tags:
   - AlarmBorad
   - AlarmArea
+  - Enemy
   layers:
   - Default
   - TransparentFX

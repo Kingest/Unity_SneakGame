@@ -27,13 +27,14 @@ public class Laser : MonoBehaviour
         if (cld.tag==Tag.Player)
         {
             GameManger._gameManager.isPlayAlarmAudio = true;
+            GameManger._gameManager.SeePlayer(cld.transform);
         }
     }
     private void OnTriggerStay(Collider other)
     {
         if (other.tag==Tag.Player)
         {
-            GameManger._gameManager.SeePlayer(other.transform);
+            
         }
     }
 

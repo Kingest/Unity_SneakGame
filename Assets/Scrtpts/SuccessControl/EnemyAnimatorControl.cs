@@ -40,7 +40,7 @@ public class EnemyAnimatorControl : MonoBehaviour
                 angleRad = angle * Mathf.Deg2Rad;//弧度的转换，角度转换成弧度
                 Vector3 project= Vector3.Project(navMeshAgent.desiredVelocity, transform.forward);
                 animator.SetFloat("Speed", project.magnitude);
-                print(project);
+                
             }
             Vector3 cross = Vector3.Cross(transform.forward, navMeshAgent.desiredVelocity);//左手定则，有详细的测试图
             if (cross.y<0)//如果为复数则取反

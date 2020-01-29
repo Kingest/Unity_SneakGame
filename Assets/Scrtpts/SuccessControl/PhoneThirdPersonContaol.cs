@@ -8,7 +8,9 @@ public class PhoneThirdPersonContaol : MonoBehaviour
     public VariableJoystick LeftvariableJoystick;//摇杆
     //public VariableJoystick RightvarobleJoystick;//测试用
     public FixedTouchField fixedTouchField;//在Canvas上新建一张图片添加此脚本，图片在Hireachy层级为最上，不然会遮挡其他按键，此图片作为手机触摸改变镜头位置的按键区域
-    public FixButtenED fixButtenED;//在图片上添加此脚本作为事件按键的监听，此为跳跃事件
+    public FixButtenED Jump;//在图片上添加此脚本作为事件按键的监听，此为跳跃事件
+    public FixButtenED Sneak;
+    
     private AudioSource audioSource;
     private Animator animator;
 
@@ -26,6 +28,9 @@ public class PhoneThirdPersonContaol : MonoBehaviour
 
     //是否拿到钥匙
     public static bool isGetKey;
+    //是否蹲伏
+    public static bool isSneak = false;
+
     private void Awake()
     {
         
@@ -52,7 +57,18 @@ public class PhoneThirdPersonContaol : MonoBehaviour
 
 
         if (thirdPersonUserControl == null) return;
-        thirdPersonUserControl.m_Jump = fixButtenED.Pressed;
+        thirdPersonUserControl.m_Jump = Jump.Pressed;
+        //以下是比较特殊的蹲伏控制
+       
+        if (Sneak.Pressed==true)
+        {
+            isSneak = true;
+        }
+        if (Sneak.Pressed==false)
+        {
+            isSneak = false;
+        }
+        
         thirdPersonUserControl.Hinput = LeftvariableJoystick.Horizontal;//摇杆的Z轴输入
         thirdPersonUserControl.Vinput = LeftvariableJoystick.Vertical;//摇杆的X轴输入
 

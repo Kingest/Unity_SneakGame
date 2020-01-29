@@ -25,8 +25,8 @@ public class GameManger : MonoBehaviour
     /// </summary>
     public AudioClip [] bgmClip;
     private AudioSource audioSurceMy;
-
-
+    public FixButtenED alarmoff;
+    public GameObject alarmoffButton;
     private void Awake()
     {
         _gameManager = this;
@@ -43,7 +43,17 @@ public class GameManger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         AlarmLight._Alarmlight.isalarm=isPlayAlarmAudio;//和警报光效bool值绑定，光效一起，音效也起
+        if (isPlayAlarmAudio==true)
+        {
+            alarmoffButton.SetActive(true);
+            if (alarmoff.Pressed == true)
+            {
+                isPlayAlarmAudio = false;
+            }
+        }
+       
         //我也能做到的！第二种方法
         if (isPlayAlarmAudio)
         {
