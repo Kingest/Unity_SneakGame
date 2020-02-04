@@ -274,7 +274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftvariableJoystick: {fileID: 2006922204}
   fixedTouchField: {fileID: 672448436}
-  fixButtenED: {fileID: 673346367}
+  Jump: {fileID: 0}
+  Sneak: {fileID: 0}
   collisionDeubg: 0
   collisionMask:
     serializedVersion: 2
@@ -727,19 +728,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4154630270245676, guid: 1dcce3f16060e724aa17739ed7894afe, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4154630270245676, guid: 1dcce3f16060e724aa17739ed7894afe, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.65142584
       objectReference: {fileID: 0}
     - target: {fileID: 4154630270245676, guid: 1dcce3f16060e724aa17739ed7894afe, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4154630270245676, guid: 1dcce3f16060e724aa17739ed7894afe, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7587123
       objectReference: {fileID: 0}
     - target: {fileID: 4154630270245676, guid: 1dcce3f16060e724aa17739ed7894afe, type: 3}
       propertyPath: m_RootOrder
@@ -751,7 +752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4154630270245676, guid: 1dcce3f16060e724aa17739ed7894afe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 81.298004
       objectReference: {fileID: 0}
     - target: {fileID: 4154630270245676, guid: 1dcce3f16060e724aa17739ed7894afe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

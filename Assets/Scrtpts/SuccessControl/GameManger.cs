@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManger : MonoBehaviour
 {
@@ -27,6 +28,12 @@ public class GameManger : MonoBehaviour
     private AudioSource audioSurceMy;
     public FixButtenED alarmoff;
     public GameObject alarmoffButton;
+    private PlayerHPControl playerHPControl;
+    public Image gameOver;
+    private float gameOverImageA;
+    public Text cai;
+    public Text haohuo;
+    private GameObject exiteLevator;
     private void Awake()
     {
         _gameManager = this;
@@ -38,11 +45,21 @@ public class GameManger : MonoBehaviour
         gb = GameObject.FindGameObjectsWithTag(Tag.AlarmBorad);
         cld = GameObject.FindGameObjectsWithTag(Tag.AlarmArea);
         audioSurceMy = GetComponent<AudioSource>();
+        playerHPControl = GameObject.FindGameObjectWithTag(Tag.Player).GetComponent<PlayerHPControl>();
+        exiteLevator = GameObject.FindGameObjectWithTag("Exit");
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (playerHPControl.PlayerHP<=0)
+        {
+            GameOver();
+        }
+        if (ExitEleveter.playerIsExit==true)
+        {
+            GameWin();
+        }
         
         AlarmLight._Alarmlight.isalarm=isPlayAlarmAudio;//和警报光效bool值绑定，光效一起，音效也起
         if (isPlayAlarmAudio==true)
@@ -61,9 +78,14 @@ public class GameManger : MonoBehaviour
             {
                 if (gb[i].GetComponent<AudioSource>().isPlaying == false)
                 {
+                    gb[i].GetComponent<AudioSource>().volume = 0.1f;
                     gb[i].GetComponent<AudioSource>().Play();
-                    audioSurceMy.clip = bgmClip[0];
-                    audioSurceMy.Play();
+                    //audioSurceMy.clip = bgmClip[0];
+                    if (bgmClip[0]!=null)
+                    {
+                        audioSurceMy.Stop();
+                    }
+                    
                 }
 
             }
@@ -85,14 +107,24 @@ public class GameManger : MonoBehaviour
         exitDoorRight.transform.position = new Vector3(Mathf.Lerp(exitDoorRight.transform.position.x, doorRight.transform.position.x,Time.deltaTime), exitDoorRight.transform.position.y, exitDoorRight.transform.position.z);
         
     }
-    void DoorExitAniPlay()
-    {
-
-    }
+   
     public void SeePlayer(Transform player)//用于统一玩家的位置信息，摄像头也好，机械人也好，看到了玩家之后就会汇报信息
     {
         isPlayAlarmAudio = true;
         lastPlayerPos = player.position;
+    }
+    public void GameOver()
+    {
+        gameOver.gameObject.SetActive(true);
+        gameOver.color = new Color(0, 0, 0, Mathf.Lerp(gameOver.color.a, 1, Time.deltaTime));//务必在第一个位置上填你自己想改的变量，不能写0,1不然结果相同
+        cai.color = new Color(cai.color.r, cai.color.g, cai.color.b, Mathf.Lerp(cai.color.a, 1, Time.deltaTime));
+    }
+    public void GameWin()
+    {
+        exiteLevator.transform.Translate(new Vector3(0, 1, 0)*Time.deltaTime);
+        gameOver.gameObject.SetActive(true);
+        gameOver.color = new Color(0, 0, 0, Mathf.Lerp(gameOver.color.a, 1, Time.deltaTime));
+        haohuo.color = new Color(cai.color.r, cai.color.g, cai.color.b, Mathf.Lerp(haohuo.color.a, 1, Time.deltaTime));
     }
     
     ///第一种方法的另一部分

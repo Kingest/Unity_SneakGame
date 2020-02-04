@@ -7,11 +7,13 @@ public class EnemyAnimatorControl : MonoBehaviour
 {
     private Animator animator;
     private NavMeshAgent navMeshAgent;
+    private PlayerHPControl playerHPControl;
     // Start is called before the first frame update
     private void Awake()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        playerHPControl= GameObject.FindGameObjectWithTag(Tag.Player).GetComponent<PlayerHPControl>();
     }
     void Start()
     {
@@ -21,7 +23,7 @@ public class EnemyAnimatorControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (navMeshAgent.desiredVelocity==Vector3.zero)//敌不动
+        if (navMeshAgent.desiredVelocity==Vector3.zero||playerHPControl.PlayerHP<=0)//敌不动
         {
             animator.SetFloat("Speed",0);
             animator.SetFloat("TurnAng", 0);
@@ -50,4 +52,5 @@ public class EnemyAnimatorControl : MonoBehaviour
             animator.SetFloat("TurnAng", angleRad);//把弧度设置回动画状态机里的弧度
         }
     }
+    
 }

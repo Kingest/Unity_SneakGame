@@ -30,7 +30,7 @@ public class PhoneThirdPersonContaol : MonoBehaviour
     public static bool isGetKey;
     //是否蹲伏
     public static bool isSneak = false;
-
+    private PlayerHPControl PlayerHPControl;
     private void Awake()
     {
         
@@ -43,11 +43,16 @@ public class PhoneThirdPersonContaol : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         collisionDeubg = true;
+        PlayerHPControl = GetComponent<PlayerHPControl>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (PlayerHPControl.PlayerHP<=0)
+        {
+            return;
+        }
         cameraAngels += fixedTouchField.TouchDist.x * cameraRotateSpeed;//旋转角，为+=累计
         
         Camera.main.transform.position = transform.position + Quaternion.AngleAxis(cameraAngels, Vector3.up) * new Vector3(0, 1.3f, -1.43f);//相机坐标位置

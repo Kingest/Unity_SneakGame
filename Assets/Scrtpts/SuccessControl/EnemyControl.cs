@@ -15,6 +15,7 @@ public class EnemyControl : MonoBehaviour
     public Vector3 perLastPlayerPosition;
     private float ang;
     public static bool seePlayer = false;
+    
     private void Awake()
     {
         navAgient = GetComponent<NavMeshAgent>();
@@ -96,4 +97,5 @@ public class EnemyControl : MonoBehaviour
             isPlayerInside = false;
         }
     }
+    
 }

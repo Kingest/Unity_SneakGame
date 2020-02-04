@@ -12,25 +12,42 @@ public class EnemyMoveControl : MonoBehaviour//自动巡逻
     private float timer = 0;//计时器，累计时间
     private EnemyControl enemyControl;
     private float t = 0;
+    private Animator animator;
+    private AudioSource audioSource;
+    public AudioClip shootVoice;
+    public PlayerHPControl playerHPControl;
+    private GameObject player;
     private void Awake()
     {
         navAgent = GetComponent<NavMeshAgent>();
         navAgent.destination = transformGroup[0].position;
         enemyControl = GetComponent<EnemyControl>();
+        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        player = GameObject.FindGameObjectWithTag(Tag.Player);
         //navAgent.updatePosition = false;
         //navAgent.updateRotation = false;
     }
-    
-   
+    private void Start()
+    {
+        playerHPControl = GameObject.FindGameObjectWithTag(Tag.Player).GetComponent<PlayerHPControl>();
+    }
+
+
 
     // Update is called once per frame
     void Update()
     {
+        if (playerHPControl.PlayerHP<=0)
+        {
+            return;
+        }
         if (enemyControl.isPlayerInside)
         {
-            navAgent.isStopped = false;
+            transform.LookAt(player.transform);
+            navAgent.isStopped = true;
             //在视线范围内，可以射击了
-            print("shoot");
+            Shoot();
 
         }
         else if (enemyControl.perLastPlayerPosition!=Vector3.zero)
@@ -41,6 +58,7 @@ public class EnemyMoveControl : MonoBehaviour//自动巡逻
         }
         else
         {
+            StopShoot();
             Patrol();
         }
        
@@ -89,7 +107,11 @@ public class EnemyMoveControl : MonoBehaviour//自动巡逻
             {
                 
                 print("Timer is finish");
-                navAgent.destination = transformGroup[index].position;
+                if (navAgent.destination!=transformGroup[index].position)
+                {
+                    navAgent.destination = transformGroup[index].position;
+                }
+                
                 enemyControl.perLastPlayerPosition = Vector3.zero;
                 GameManger._gameManager.isPlayAlarmAudio = false;
             }
@@ -97,6 +119,18 @@ public class EnemyMoveControl : MonoBehaviour//自动巡逻
     }
     void Shoot()//射击玩家
     {
+        animator.SetBool("SeePlayer", true);
+        audioSource.clip = shootVoice;
+        if (audioSource.isPlaying==false)
+        {
+            playerHPControl.Damange(20);
+            audioSource.Play();
+        }
+        
+    }
+    void StopShoot()
+    {
+        animator.SetBool("SeePlayer", false);
 
     }
 }
