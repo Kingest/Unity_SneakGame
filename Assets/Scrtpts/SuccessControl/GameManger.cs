@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManger : MonoBehaviour
 {
@@ -34,6 +35,9 @@ public class GameManger : MonoBehaviour
     public Text cai;
     public Text haohuo;
     private GameObject exiteLevator;
+    public Button reLoadScene;
+    public Button quitGame;
+    public GameObject gameover;
     private void Awake()
     {
         _gameManager = this;
@@ -47,6 +51,9 @@ public class GameManger : MonoBehaviour
         audioSurceMy = GetComponent<AudioSource>();
         playerHPControl = GameObject.FindGameObjectWithTag(Tag.Player).GetComponent<PlayerHPControl>();
         exiteLevator = GameObject.FindGameObjectWithTag("Exit");
+        reLoadScene.onClick.AddListener(ReLoadScene);
+        quitGame.onClick.AddListener(GameQuit);
+        ExitEleveter.playerIsExit = false;
     }
 
     // Update is called once per frame
@@ -173,6 +180,13 @@ public class GameManger : MonoBehaviour
     //    //}
         
     //}
-    
+    public void ReLoadScene()
+    {
+        SceneManager.LoadScene("MainScene");
+    }
+    public void GameQuit()
+    {
+        Application.Quit();
+    }
 }
 
